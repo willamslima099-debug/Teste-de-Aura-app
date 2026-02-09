@@ -58,7 +58,12 @@
 </head>
 <body>
     <div id="root"></div>
-  <script type="text/babel" data-type="module" src="index.tsx"></script>
+  <script type="text/babel" data-type="module">
+  import App from './App.tsx';
+  const root = ReactDOM.createRoot(document.getElementById('root'));
+  root.render(<App />);
+</script>
+
 </body>
 </html>
 

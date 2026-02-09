@@ -18,8 +18,8 @@ const App: React.FC = () => {
     const initApp = async () => {
       try {
         await dbService.init();
-        const savedUser = localStorage.getItem('aura_current_user');
-        if (savedUser) {
+          const savedUser = localStorage.getItem('aura_current_user');
+          if (savedUser) {
           const user = JSON.parse(savedUser);
           setState({ user, isAuthenticated: true });
         }
