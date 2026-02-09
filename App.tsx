@@ -14,23 +14,31 @@ const App: React.FC = () => {
   const [showAuth, setShowAuth] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
+    useEffect(() => {
     const initApp = async () => {
       try {
-        await dbService.init();
-          const savedUser = localStorage.getItem('aura_current_user');
-          if (savedUser) {
+        // Tentamos iniciar o banco, mas se falhar, a Aura não morre
+        try {
+          await dbService.init();
+        } catch (dbError) {
+          console.error("Aura: Erro no DB, mas seguindo adiante...", dbError);
+        }
+
+        const savedUser = localStorage.getItem('aura_current_user');
+        if (savedUser) {
           const user = JSON.parse(savedUser);
           setState({ user, isAuthenticated: true });
         }
       } catch (error) {
-        console.error("Erro ao inicializar banco de dados local:", error);
+        console.error("Erro crítico na inicialização:", error);
       } finally {
+        // Isso garante que o 'Carregando...' suma e a tela apareça
         setIsLoading(false);
       }
     };
     initApp();
   }, []);
+
 
   const handleLogin = (user: User) => {
     localStorage.setItem('aura_current_user', JSON.stringify(user));
