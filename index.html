@@ -44,6 +44,7 @@
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #444; }
     </style>
+    
 <script type="importmap">
 {
   "imports": {
@@ -54,16 +55,27 @@
   }
 }
 </script>
-<link rel="stylesheet" href="index.css">
+
 </head>
 <body>
     <div id="root"></div>
-  <script type="text/babel" data-type="module">
-  import App from './App.tsx';
-  const root = ReactDOM.createRoot(document.getElementById('root'));
-  root.render(<App />);
-</script>
 
+    <script type="text/babel" data-type="module">
+        import React from 'react';
+        import ReactDOM from 'react-dom';
+        import App from './App.tsx';
+        
+        const rootElement = document.getElementById('root');
+        if (rootElement) {
+            const root = ReactDOM.createRoot(rootElement);
+            root.render(
+                <React.StrictMode>
+                    <App />
+                </React.StrictMode>
+            );
+        }
+    </script>
 </body>
+
 </html>
 
